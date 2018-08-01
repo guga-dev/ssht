@@ -1,23 +1,29 @@
-from .ssht import Database
+import configparser
+from ssht import Database
 import time
 
-if __name__ == '__main__':
+def main():
+     config = configparser.ConfigParser()
+     config.read('properties.ini')
 
-     serverTunnel = { 'host': "200.54.242.52",
-             'sshUsername': "grojas",
-             'sshPKEY': "/Users/grojas/.ssh/id_rsa",
-             'remoteBindPort': 3306 }
+     serverTunnel = { 'host': config['sshserver']['Host'],
+             'sshUsername': config['sshserver']['SSHUsername'],
+             'sshPKEY': config['sshserver']['SSHPKey'],
+             'remoteBindPort': int(config['sshserver']['RemoteBindPort']),
+             'remoteBindAddress': config['sshserver']['RemoteBindAddress'],
+             'localBindAddress': config['sshserver']['LocalBindAddress'],
+             'localBindPort': int(config['sshserver']['LocalBindPort'])}
 
      s = Database("mysql").connectTunnel(serverTunnel)
      s.start()
-     print(s.local_bind_port)  # show assigned local port
+     # print(s.local_bind_port)  # show assigned local port
      time.sleep(3)
 
-     dbInfo = { 'user':'mobility',
-             'host': '127.0.0.1',
-             'passwd': 'TIDChile.2017',
-             'db': 'mobility_CDR',
-             'port': s.local_bind_port }
+     dbInfo = { 'user': config['mysql']['User'],
+             'host': config['mysql']['Host'],
+             'passwd': config['mysql']['Passwd'],
+             'db': config['mysql']['DB'],
+             'port': int(config['sshserver']['LocalBindPort'])}
 
      c = Database("mysql").connectDB(dbInfo)
      time.sleep(3)
@@ -34,3 +40,6 @@ if __name__ == '__main__':
      cur.close()
      c.close()
      s.stop()
+
+if __name__ == '__main__':
+    main()
