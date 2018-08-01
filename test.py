@@ -4,7 +4,7 @@ import time
 
 def main():
      config = configparser.ConfigParser()
-     config.read('properties.ini')
+     config.read('properties.temp')
 
      serverTunnel = { 'host': config['sshserver']['Host'],
              'sshUsername': config['sshserver']['SSHUsername'],
