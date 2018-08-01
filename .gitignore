@@ -1,0 +1,10 @@
+# config files #
+##############
+properties.ini
+pip-selfcheck.json
+
+# folders #
+###########
+bin/*
+include/*
+lib/*

@@ -26,7 +26,7 @@ class Database:
 
 if __name__ == '__main__':
     config = configparser.ConfigParser()
-    config.read('properties.ini')
+    config.read('properties.temp')
 
     serverTunnel = { 'host': config['sshserver']['Host'],
             'sshUsername': config['sshserver']['SSHUsername'],

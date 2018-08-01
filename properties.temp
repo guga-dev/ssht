@@ -1,0 +1,16 @@
+[DEFAULT]
+
+[sshserver]
+Host = Host
+SSHUsername = SSHUsername
+SSHPKey = PathKey
+RemoteBindPort = PortMySQL
+RemoteBindAddress = 127.0.0.1
+LocalBindAddress = 0.0.0.0
+LocalBindPort = 10022
+
+[mysql]
+User = UserDB
+Host = 127.0.0.1
+Passwd = Password
+DB = DBNAME
